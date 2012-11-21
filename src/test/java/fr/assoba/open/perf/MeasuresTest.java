@@ -31,7 +31,7 @@ public class MeasuresTest {
 				System.out.println("Compressed data size :"+data.length);
 			}
 		});
-		for(int j=0;j<50000;j++) {
+		for(int j=0;j<10000;j++) {
 			Event event = new Event();
 			double rand = 0;
 			int iters = (int) (100000.0 * Math.random());
