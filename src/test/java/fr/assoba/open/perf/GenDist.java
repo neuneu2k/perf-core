@@ -18,9 +18,6 @@ package fr.assoba.open.perf;
 import java.util.ArrayList;
 
 import org.apache.commons.math3.distribution.LogNormalDistribution;
-import org.apache.commons.math3.optimization.MultivariateMultiStartOptimizer;
-import org.apache.commons.math3.optimization.fitting.CurveFitter;
-import org.apache.commons.math3.optimization.general.LevenbergMarquardtOptimizer;
 
 import com.google.common.base.Joiner;
 

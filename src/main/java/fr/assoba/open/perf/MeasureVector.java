@@ -196,12 +196,10 @@ public final class MeasureVector implements Externalizable {
 		out.writeLong(end);
 		out.writeLong(events);
 		out.writeLong(totalMicros);
-		long old = 0;
 		int zeros = 0;
 		for (long l : histogram.data) {
 			if (l == 0) {
 				zeros++;
-				old = 0;
 			} else {
 				if (zeros > 0) {
 					// Write RLE 0z, doubles 00 inside data, RLE outside
@@ -210,7 +208,6 @@ public final class MeasureVector implements Externalizable {
 					zeros = 0;
 				}
 				writeVarint(l, out);
-				old = l;
 			}
 		}
 		if (zeros > 0) {

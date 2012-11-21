@@ -16,7 +16,6 @@
 package fr.assoba.open.perf;
 
 import java.util.ArrayList;
-import java.util.concurrent.Executor;
 
 public class Measure {
 
