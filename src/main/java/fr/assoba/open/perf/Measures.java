@@ -26,6 +26,18 @@ import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.SleepingWaitStrategy;
 import com.lmax.disruptor.dsl.Disruptor;
 
+/**
+ * Main Access point
+ * 
+ * Should be injected by inversion of context frameworks or be a Singleton
+ * somewhere, Measure is the only public heavyweight object.
+ * 
+ * A Measures instance handles asynchronous treatement of all {@link Event}
+ * flyweights associated with it's child {@link Measure} objects.
+ * 
+ * @author jpujo@assoba.fr
+ * 
+ */
 @SuppressWarnings("unchecked")
 public class Measures {
 
@@ -66,6 +78,15 @@ public class Measures {
 		ringBuffer = disruptor.start();
 	}
 
+	/**
+	 * Return a named Measure
+	 * 
+	 * Creates if new, or returns the existing {@link Measure} object
+	 * 
+	 * @param name
+	 * @return
+	 */
+
 	public Measure getMeasure(String name) {
 		if (map.containsKey(name)) {
 			return map.get(name);
@@ -97,7 +118,7 @@ public class Measures {
 		ringBuffer.publish(seq);
 	}
 
-	public void save(long now) {
+	void save(long now) {
 		for (String name : map.keySet()) {
 			Measure m = map.get(name);
 			MeasureVector vector = new MeasureVector();
@@ -107,7 +128,7 @@ public class Measures {
 			vector.setStart(lastUpdate);
 			vector.setEnd(now);
 			vector.setHistogram(m.histogram);
-			m.setPreviousMeasure(vector);
+			m.previousMeasure = vector;
 			if (measureSaver != null) {
 				measureSaver.save(vector);
 			}
@@ -115,13 +136,9 @@ public class Measures {
 	}
 
 	/**
-	 * @return the measureSaver
-	 */
-	public final MeasureSaver getMeasureSaver() {
-		return measureSaver;
-	}
-
-	/**
+	 * Injects the concrete {@link MeasureSaver} instance to persist
+	 * {@link MeasureVector} points
+	 * 
 	 * @param measureSaver
 	 *            the measureSaver to set
 	 */

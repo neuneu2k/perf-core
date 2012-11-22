@@ -17,16 +17,25 @@ package fr.assoba.open.perf;
 
 import java.util.ArrayList;
 
+/**
+ * Living Measure Object
+ * 
+ * Container for the current measurement and the aggregated previous
+ * {@link MeasureVector} for simple (non persisted) uses
+ * 
+ * @author josselin
+ * 
+ */
 public class Measure {
 
 	Histogram histogram = new Histogram();
 	long totalMicros = 0l;
 	long events = 0l;
 	ArrayList<Event> outliers = new ArrayList<Event>(10);
-	private MeasureVector previousMeasure = new MeasureVector();
-	private Measures parent;
+	MeasureVector previousMeasure = new MeasureVector();
+	Measures parent;
 
-	public Measure(Measures parent) {
+	Measure(Measures parent) {
 		this.parent = parent;
 	}
 
@@ -54,18 +63,11 @@ public class Measure {
 	}
 
 	/**
-	 * @return the previousMeasure
+	 * @return the {@link MeasureVector} last aggregated (last 5s of aggregated
+	 *         data for this measure)
 	 */
 	public final MeasureVector getPreviousMeasure() {
 		return previousMeasure;
-	}
-
-	/**
-	 * @param previousMeasure
-	 *            the previousMeasure to set
-	 */
-	public final void setPreviousMeasure(MeasureVector previousMeasure) {
-		this.previousMeasure = previousMeasure;
 	}
 
 }

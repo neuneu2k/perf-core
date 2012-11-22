@@ -17,6 +17,12 @@ package fr.assoba.open.perf;
 
 import java.text.NumberFormat;
 
+/**
+ * Flyweight time elapsed event
+ * 
+ * @author jpujo@assoba.fr
+ *
+ */
 public class Event {
 
 	private long usStart;
@@ -44,6 +50,11 @@ public class Event {
 		format.setMinimumFractionDigits(1);
 	}
 
+	/**
+	 * Utility function to format a number of microSeconds to String
+	 * @param micros
+	 * @return
+	 */
 	public static String toString(long micros) {
 		if (micros < 1000000) {
 			return format.format(micros / 1000.0f) + "ms";
@@ -58,10 +69,18 @@ public class Event {
 		return toString(usEnd - usStart);
 	}
 
+	/**
+	 * 
+	 * @return elapsed time in seconds
+	 */
 	public float getTime() {
 		return (usEnd - usStart) / 1000000f;
 	}
 
+	/**
+	 * 
+	 * @return elapsed time in microSeconds
+	 */
 	public long getMicros() {
 		return usEnd - usStart;
 	}

@@ -15,7 +15,20 @@
  ******************************************************************************/
 package fr.assoba.open.perf;
 
+/**
+ * Save {@link MeasureVector} to persistant storage, or send it to
+ * a central server, or give it to your dog
+ */
 public interface MeasureSaver {
 
+	/**
+	 * Save the {@link MeasureVector} provided to persistant storage, or send it
+	 * to a central server, or give it to your dog
+	 * 
+	 * Whatever you do, do it fast or do it in another thread, this method
+	 * blocks aggregation !
+	 * 
+	 * @param measureVector
+	 */
 	public abstract void save(MeasureVector measureVector);
 }
